@@ -1,77 +1,102 @@
-# EXPERIMENT 9 – UNCERTAINTY-BASED REASONING
+# EXPERIMENT 5 – HEURISTIC SEARCH
 
 ## Aim
-To study and implement uncertainty-based reasoning techniques using Bayesian Reasoning and Fuzzy Inference Systems.
+To study and implement heuristic search algorithms using Python.
 
 ## Introduction
-In real-world situations, information may be incomplete, unclear or uncertain. Uncertainty-based reasoning helps Artificial Intelligence systems make decisions using available information.
+Heuristic Search uses additional information to estimate how close a current state is to the goal state. This helps in finding solutions efficiently.
 
-## 1. Bayesian Reasoning
+A heuristic function is represented as h(n), where n is the current node.
 
-Bayesian Reasoning is a probability-based technique used to update the possibility of an event when new evidence becomes available.
+## 1. Greedy Best-First Search
 
-It uses Bayes' Theorem.
+Greedy Best-First Search selects the node that appears closest to the goal based on the heuristic value.
 
-**Formula:**
+**Evaluation Function:**
 
-P(A|B) = [P(B|A) × P(A)] / P(B)
-
-Where:
-- P(A): Prior probability of event A.
-- P(B): Probability of evidence B.
-- P(B|A): Probability of evidence B when A is true.
-- P(A|B): Updated probability of A after observing B.
+f(n) = h(n)
 
 **Working:**
-1. Identify the event.
-2. Calculate the prior probability.
-3. Collect new evidence.
-4. Apply Bayes' Theorem.
-5. Calculate the updated probability.
+1. Start from the initial node.
+2. Calculate heuristic values of neighboring nodes.
+3. Select the node with the lowest heuristic value.
+4. Repeat until the goal is reached.
 
-**Example:** Estimating the probability of a disease based on a medical test result.
+**Example:** Finding a route using straight-line distance to the destination.
 
-## 2. Fuzzy Inference System
+## 2. A* Search Algorithm
 
-A Fuzzy Inference System is a reasoning method that uses fuzzy logic to handle vague or imprecise information.
+A* Search combines the actual cost and estimated cost to find an efficient path.
 
-Unlike traditional Boolean logic, which uses only 0 and 1, fuzzy logic allows values between 0 and 1.
+**Evaluation Function:**
 
-**Example:** Temperature can be classified as:
-- Low
-- Medium
-- High
+f(n) = g(n) + h(n)
 
-A temperature can belong to more than one fuzzy category with different membership values.
+Where:
+- g(n): Actual cost from the starting node.
+- h(n): Estimated cost from the current node to the goal.
+- f(n): Total estimated cost.
 
-### Main Components
+**Working:**
+1. Start from the initial node.
+2. Calculate g(n), h(n) and f(n).
+3. Select the node with the lowest f(n).
+4. Expand its neighboring nodes.
+5. Repeat until the goal is reached.
 
-1. Fuzzification – Converts crisp input values into fuzzy values.
-2. Rule Base – Contains IF-THEN rules.
-3. Inference Engine – Applies the rules.
-4. Defuzzification – Converts fuzzy output into a crisp value.
+**Example:** Solving the Eight Puzzle Problem.
 
-**Example Rule:**
+## 3. AO* Search Algorithm
 
-IF temperature is high, THEN fan speed is fast.
+AO* is a heuristic search algorithm used for AND-OR graphs.
+
+- OR node: Only one child needs to be selected.
+- AND node: All required child nodes must be solved.
+
+**Working:**
+1. Start from the initial node.
+2. Calculate estimated costs using heuristic values.
+3. Select the most promising path.
+4. Expand the selected node.
+5. Update the costs.
+6. Continue until the solution graph is found.
+
+**Example:** Solving problems that can be divided into smaller subproblems.
+
+## 4. Memory-Bounded Heuristic Search
+
+Memory-Bounded Search algorithms perform heuristic search while controlling the amount of memory used.
+
+**Example: IDA* (Iterative Deepening A*)**
+
+IDA* combines ideas from A* and iterative deepening search.
+
+**Working:**
+1. Calculate the initial f-cost.
+2. Set it as the search threshold.
+3. Perform depth-first search within that threshold.
+4. If the goal is not found, increase the threshold.
+5. Repeat until the goal is reached.
 
 ## Applications
 
-### Medical Diagnosis
-Bayesian reasoning can estimate disease probabilities from test results. Fuzzy logic can represent vague symptoms such as mild, moderate or severe.
+### Tic-Tac-Toe
+A game where two players place X and O on a 3×3 board. Search algorithms can help select the best move.
 
-### Electric and Autonomous Vehicles
-Bayesian reasoning can estimate uncertain road conditions. Fuzzy logic can help represent conditions such as slow, medium or fast speed.
+### Missionaries and Cannibals
+A river-crossing problem where missionaries and cannibals must cross without violating safety conditions.
 
-### Smart Manufacturing
-Bayesian reasoning can estimate the probability of machine failure. Fuzzy logic can classify machine temperature or vibration as low, medium or high.
+### Eight Puzzle
+A 3×3 board containing eight numbered tiles and one blank space. The objective is to arrange the tiles in the correct order.
 
 ## Comparison
 
-| Technique | Main Feature |
+| Algorithm | Main Idea |
 |---|---|
-| Bayesian Reasoning | Uses probability |
-| Fuzzy Inference | Uses degrees of membership |
+| Greedy Best-First | Uses heuristic value only |
+| A* | Uses actual cost and heuristic |
+| AO* | Searches AND-OR graphs |
+| IDA* | Uses iterative deepening with f-cost limits |
 
 ## Result
-Bayesian Reasoning and Fuzzy Inference System techniques were studied and implemented successfully using Python.
+Different heuristic search algorithms and their applications were studied and implemented successfully.
