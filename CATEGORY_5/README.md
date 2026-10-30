@@ -1,214 +1,77 @@
-# Heuristic Search Techniques
-
-## AI Course – II AIML
-
-### Category 5 – Heuristic Search
-
-This project implements two heuristic search techniques:
-
-1. A* Search
-2. AO* Search
-
-The programs demonstrate how heuristic search techniques can be used to find an optimal solution.
-
----
-
-# 1. A* Search
+# EXPERIMENT 9 – UNCERTAINTY-BASED REASONING
 
 ## Aim
+To study and implement uncertainty-based reasoning techniques using Bayesian Reasoning and Fuzzy Inference Systems.
 
-To implement the **A* Search algorithm** for solving the **8-Puzzle problem**.
+## Introduction
+In real-world situations, information may be incomplete, unclear or uncertain. Uncertainty-based reasoning helps Artificial Intelligence systems make decisions using available information.
 
-## What is A* Search?
+## 1. Bayesian Reasoning
 
-A* is an informed search algorithm that uses both the actual cost and the estimated cost to find the best path.
+Bayesian Reasoning is a probability-based technique used to update the possibility of an event when new evidence becomes available.
 
-It uses the formula:
+It uses Bayes' Theorem.
 
-**f(n) = g(n) + h(n)**
+**Formula:**
+
+P(A|B) = [P(B|A) × P(A)] / P(B)
 
 Where:
+- P(A): Prior probability of event A.
+- P(B): Probability of evidence B.
+- P(B|A): Probability of evidence B when A is true.
+- P(A|B): Updated probability of A after observing B.
 
-* **g(n)** = cost from the initial state to the current state
-* **h(n)** = estimated cost from the current state to the goal
-* **f(n)** = total estimated cost
+**Working:**
+1. Identify the event.
+2. Calculate the prior probability.
+3. Collect new evidence.
+4. Apply Bayes' Theorem.
+5. Calculate the updated probability.
 
-The node with the lowest `f(n)` value is selected first.
+**Example:** Estimating the probability of a disease based on a medical test result.
 
-## Heuristic Used
+## 2. Fuzzy Inference System
 
-The program uses **Manhattan Distance** as the heuristic.
+A Fuzzy Inference System is a reasoning method that uses fuzzy logic to handle vague or imprecise information.
 
-Manhattan Distance is calculated by finding how many rows and columns each tile is away from its correct position.
+Unlike traditional Boolean logic, which uses only 0 and 1, fuzzy logic allows values between 0 and 1.
 
-## 8-Puzzle
+**Example:** Temperature can be classified as:
+- Low
+- Medium
+- High
 
-The puzzle contains:
+A temperature can belong to more than one fuzzy category with different membership values.
 
-* 8 numbered tiles
-* 1 empty space represented by `0`
-* A 3 × 3 board
+### Main Components
 
-Example:
+1. Fuzzification – Converts crisp input values into fuzzy values.
+2. Rule Base – Contains IF-THEN rules.
+3. Inference Engine – Applies the rules.
+4. Defuzzification – Converts fuzzy output into a crisp value.
 
-```text
-1 2 3
-4 0 6
-7 5 8
-```
+**Example Rule:**
 
-Goal state:
+IF temperature is high, THEN fan speed is fast.
 
-```text
-1 2 3
-4 5 6
-7 8 0
-```
+## Applications
 
-## Working
+### Medical Diagnosis
+Bayesian reasoning can estimate disease probabilities from test results. Fuzzy logic can represent vague symptoms such as mild, moderate or severe.
 
-1. Start with the initial puzzle state.
-2. Find the position of the empty tile.
-3. Generate possible neighboring states.
-4. Calculate the heuristic value using Manhattan Distance.
-5. Calculate:
+### Electric and Autonomous Vehicles
+Bayesian reasoning can estimate uncertain road conditions. Fuzzy logic can help represent conditions such as slow, medium or fast speed.
 
-```text
-f(n) = g(n) + h(n)
-```
+### Smart Manufacturing
+Bayesian reasoning can estimate the probability of machine failure. Fuzzy logic can classify machine temperature or vibration as low, medium or high.
 
-6. Select the state with the lowest `f(n)`.
-7. Continue until the goal state is reached.
-8. Display all the steps from the initial state to the goal state.
+## Comparison
 
-## Example Output
+| Technique | Main Feature |
+|---|---|
+| Bayesian Reasoning | Uses probability |
+| Fuzzy Inference | Uses degrees of membership |
 
-```text
-Step 0
-(1, 2, 3)
-(4, 0, 6)
-(7, 5, 8)
-
-Step 1
-(1, 2, 3)
-(4, 5, 6)
-(7, 0, 8)
-
-Step 2
-(1, 2, 3)
-(4, 5, 6)
-(7, 8, 0)
-```
-
-The final state is the goal state.
-
----
-
-# 2. AO* Search
-
-## Aim
-
-To implement the **AO* Search algorithm** using an **AND-OR graph**.
-
-## What is AO* Search?
-
-AO* is a heuristic search algorithm used for solving problems represented as **AND-OR graphs**.
-
-It finds the minimum-cost solution graph using heuristic values.
-
-## AND-OR Graph
-
-### OR Node
-
-At an OR node, we can choose **one** of the available alternatives.
-
-Example:
-
-```text
-       A
-      / \
-     B   D
-```
-
-We can choose either `B` or `D`.
-
-### AND Node
-
-At an AND node, **all required child nodes** must be solved.
-
-Example:
-
-```text
-       A
-      / \
-     B   C
-```
-
-Both `B` and `C` are required.
-
-## Working
-
-1. Start from the root node.
-2. Check the available alternatives.
-3. Calculate the cost of each alternative.
-4. For an OR choice, select the minimum-cost alternative.
-5. For an AND choice, add the costs of all required child nodes.
-6. Update the heuristic value.
-7. Continue until the minimum-cost solution graph is obtained.
-
-## Example Graph
-
-The program uses an AND-OR graph such as:
-
-```text
-              A
-            /   \
-          AND    OR
-         /  \     |
-        B    C    D
-       / \   |
-      E   F  G
-```
-
-The algorithm evaluates the alternatives and selects the solution with minimum cost.
-
-## Output
-
-The program displays:
-
-```text
-AO* Search
-Minimum Cost: 3
-
-Solution Graph:
-B -> ['E']
-C -> G
-D -> ['H', 'I']
-A -> ['B', 'C']
-```
-
-The selected nodes represent the minimum-cost solution graph.
-
----
-
-# Difference Between A* and AO*
-
-| A* Search                  | AO* Search                                  |
-| -------------------------- | ------------------------------------------- |
-| Used for graph/path search | Used for AND-OR graphs                      |
-| Finds an optimal path      | Finds an optimal solution graph             |
-| Uses `f(n) = g(n) + h(n)`  | Uses heuristic cost for AND-OR alternatives |
-| Usually selects one path   | AND branches may require multiple solutions |
-| Example: 8-Puzzle          | Example: Problem decomposition              |
-
----
-
-# Conclusion
-
-A* and AO* are **heuristic search techniques**.
-
-**A*** finds an optimal path by combining the actual cost and heuristic cost.
-
-**AO*** finds an optimal solution graph in an AND-OR problem by evaluating different alternatives and required sub-problems.
-
-These algorithms are useful in **Artificial Intelligence** for solving complex search and problem-solving tasks.
+## Result
+Bayesian Reasoning and Fuzzy Inference System techniques were studied and implemented successfully using Python.
